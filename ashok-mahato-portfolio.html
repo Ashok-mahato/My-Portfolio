@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Ashok Mahato </title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    box-sizing:border-box;
+    --bg:#101826;
+    --bg-soft:#16202f;
+    --paper:#ede6d8;
+    --label-ink:#1b2430;
+    --text:#ede9df;
+    --text-dim:#a9b0bd;
+    --amber:#d89b3c;
+    --amber-soft:#c98a2c;
+    --teal:#5b9a90;
+    --line:rgba(237,233,223,0.14);
+    --serif:'Zilla Slab', Georgia, 'Times New Roman', serif;
+    --sans:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; scroll-padding-top:calc(72px + env(safe-area-inset-top,0px));}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{max-width:100%;display:block;}
+  a{color:inherit;}
+
+  .wrap{max-width:920px; margin:0 auto; padding:0 28px;}
+
+  /* background circuit/molecule texture */
+  .bgfx{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    opacity:0.14;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:20;
+    padding-top:env(safe-area-inset-top,0px);
+    background:rgba(16,24,38,0.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .headbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px; max-width:920px; margin:0 auto;
+  }
+  .mark{font-family:var(--serif); font-weight:600; font-size:1.15rem; letter-spacing:0.01em;}
+  .mark span{color:var(--amber);}
+  nav ul{display:flex; gap:26px; list-style:none;}
+  nav a{font-size:0.92rem; text-decoration:none; color:var(--text-dim); transition:color .2s;}
+  nav a:hover, nav a:focus-visible{color:var(--amber);}
+  @media (max-width:560px){ nav ul{gap:14px;} nav a{font-size:0.82rem;} }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; z-index:1;
+    padding:88px 0 64px;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.3fr 0.9fr; gap:48px; align-items:end;
+  }
+  @media (max-width:760px){ .hero-grid{grid-template-columns:1fr;} }
+
+  .kicker{
+    font-size:0.85rem; color:var(--teal); letter-spacing:0.04em; margin-bottom:14px;
+    opacity:0; transform:translateY(8px); animation:rise .7s ease-out .1s forwards;
+  }
+  h1{
+    font-family:var(--serif); font-weight:700;
+    font-size:clamp(2.6rem, 6vw, 4.4rem);
+    line-height:1.02; letter-spacing:-0.01em;
+    opacity:0; transform:translateY(10px); animation:rise .8s ease-out .25s forwards;
+  }
+  .role{
+    font-family:var(--sans); font-size:clamp(1.05rem,2vw,1.3rem);
+    color:var(--text-dim); margin-top:16px; max-width:46ch;
+    opacity:0; transform:translateY(10px); animation:rise .8s ease-out .4s forwards;
+  }
+  .role strong{color:var(--text); font-weight:600;}
+  @keyframes rise{ to{opacity:1; transform:translateY(0);} }
+  @media (prefers-reduced-motion:reduce){
+    .kicker,h1,.role,.label-card{animation:none !important; opacity:1 !important; transform:none !important;}
+  }
+
+  /* the "label" card — modeled on a pharmacy label */
+  .label-card{
+    background:var(--paper); color:var(--label-ink);
+    border:1px solid rgba(27,36,48,0.18);
+    border-radius:2px;
+    padding:22px 24px;
+    box-shadow:0 18px 40px -18px rgba(0,0,0,0.55);
+    opacity:0; transform:translateY(14px); animation:rise .8s ease-out .55s forwards;
+  }
+  .label-card::before{
+    content:'';
+    display:block; height:3px; width:44px; background:var(--amber-soft); margin-bottom:16px;
+  }
+  .label-row{
+    display:flex; justify-content:space-between; gap:12px;
+    padding:9px 0; border-bottom:1px dashed rgba(27,36,48,0.22);
+    font-size:0.88rem;
+  }
+  .label-row:last-child{border-bottom:none;}
+  .label-row .k{color:rgba(27,36,48,0.6); font-family:var(--sans); font-weight:500;}
+  .label-row .v{font-family:var(--serif); font-weight:600; text-align:right;}
+
+  /* ---------- section shell ---------- */
+  section{position:relative; z-index:1; padding:60px 0;}
+  .section-head{
+    display:flex; align-items:baseline; gap:16px; margin-bottom:34px;
+    border-bottom:1px solid var(--line); padding-bottom:16px;
+  }
+  .section-head h2{
+    font-family:var(--serif); font-weight:600; font-size:1.7rem;
+  }
+  .section-head .tag{font-size:0.85rem; color:var(--text-dim);}
+
+  /* about */
+  .about-body{max-width:64ch; font-size:1.06rem; color:var(--text-dim);}
+  .about-body strong{color:var(--text);}
+
+  /* skills */
+  .skills-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0;}
+  @media (max-width:700px){ .skills-grid{grid-template-columns:1fr;} }
+  .skill-col{
+    padding:0 22px 18px 0; border-right:1px solid var(--line);
+  }
+  .skill-col:last-child{border-right:none;}
+  @media (max-width:700px){
+    .skill-col{border-right:none; border-bottom:1px solid var(--line); padding:0 0 22px 0; margin-bottom:22px;}
+    .skill-col:last-child{border-bottom:none; margin-bottom:0;}
+  }
+  .skill-col h3{
+    font-family:var(--sans); font-weight:600; font-size:0.98rem;
+    color:var(--amber); margin-bottom:14px;
+  }
+  .skill-col ul{list-style:none;}
+  .skill-col li{
+    font-size:0.96rem; color:var(--text-dim); padding:7px 0;
+    border-top:1px solid var(--line);
+  }
+  .skill-col li:first-child{border-top:none;}
+
+  /* projects / experience timeline */
+  .tline{position:relative; padding-left:26px; border-left:1px solid var(--line);}
+  .titem{position:relative; padding-bottom:38px;}
+  .titem:last-child{padding-bottom:0;}
+  .titem::before{
+    content:''; position:absolute; left:-31px; top:5px;
+    width:9px; height:9px; border-radius:50%;
+    background:var(--amber); box-shadow:0 0 0 4px rgba(216,155,60,0.16);
+  }
+  .titem .when{font-size:0.82rem; color:var(--teal); margin-bottom:6px;}
+  .titem h3{font-family:var(--serif); font-weight:600; font-size:1.22rem; margin-bottom:8px;}
+  .titem p{color:var(--text-dim); max-width:60ch; font-size:0.98rem;}
+  .titem .stack{margin-top:10px; font-size:0.82rem; color:var(--text-dim);}
+  .titem .stack span{color:var(--text); }
+
+  /* contact */
+  .contact-wrap{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:start;
+  }
+  @media (max-width:700px){ .contact-wrap{grid-template-columns:1fr;} }
+  .contact-lead{font-size:1.35rem; font-family:var(--serif); font-weight:600; max-width:22ch; line-height:1.3;}
+  .cta{
+    display:inline-flex; align-items:center; gap:10px;
+    margin-top:22px; padding:13px 22px;
+    background:var(--amber); color:#1b1204; font-weight:600; font-size:0.98rem;
+    border-radius:2px; text-decoration:none;
+    transition:background .2s, transform .2s;
+  }
+  .cta:hover, .cta:focus-visible{background:var(--amber-soft); transform:translateY(-1px);}
+  .contact-list{list-style:none;}
+  .contact-list li{
+    padding:12px 0; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; font-size:0.95rem;
+  }
+  .contact-list li:first-child{border-top:none;}
+  .contact-list .k{color:var(--text-dim);}
+
+  footer{
+    position:relative; z-index:1;
+    padding:30px 0 calc(30px + env(safe-area-inset-bottom,0px));
+    border-top:1px solid var(--line);
+    font-size:0.82rem; color:var(--text-dim);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  ::selection{background:var(--amber); color:#1b1204;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--amber); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<svg class="bgfx" viewBox="0 0 900 1400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+  <g stroke="#5b9a90" stroke-width="1" fill="none">
+    <path d="M0 120 H180 V260 H420 V90 H700 V300"/>
+    <path d="M900 500 H650 V420 H380 V600 H120 V480 H0"/>
+    <path d="M0 900 H220 V760 H520 V960 H900"/>
+    <path d="M900 1200 H700 V1080 H300 V1250 H60"/>
+  </g>
+  <g fill="#d89b3c">
+    <circle cx="180" cy="120" r="4"/><circle cx="420" cy="260" r="4"/><circle cx="700" cy="90" r="4"/>
+    <circle cx="650" cy="500" r="4"/><circle cx="380" cy="420" r="4"/><circle cx="120" cy="600" r="4"/>
+    <circle cx="220" cy="900" r="4"/><circle cx="520" cy="760" r="4"/>
+    <circle cx="700" cy="1200" r="4"/><circle cx="300" cy="1080" r="4"/>
+  </g>
+</svg>
+
+<header>
+  <div class="headbar">
+    <div class="mark">Ashok<span>.</span>Mahato</div>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <p class="kicker">IT Officer · Pharmaceutical Sector</p>
+        <h1>Ashok<br>Mahato</h1>
+        <p class="role">Keeping the systems steady behind every batch that leaves the plant — <strong>IT Officer at Deurali-Janta Pharmaceuticals Pvt. Ltd.</strong>, working across infrastructure, support, and internal tools.</p>
+      </div>
+      <div class="label-card">
+        <div class="label-row"><span class="k">Role</span><span class="v">IT Officer</span></div>
+        <div class="label-row"><span class="k">Company</span><span class="v">Deurali-Janta Pharmaceuticals</span></div>
+        <div class="label-row"><span class="k">Based in</span><span class="v">Nepal</span></div>
+        <div class="label-row"><span class="k">Focus</span><span class="v">Systems · Support · Web</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-head">
+      <h2>About</h2>
+      <span class="tag">Who I am</span>
+    </div>
+    <p class="about-body">
+      I work on the IT side of a pharmaceutical company, where <strong>uptime and accuracy aren't optional</strong> —
+      production lines, records, and reporting all depend on systems running quietly and correctly. Day to day that means
+      supporting infrastructure, troubleshooting for the teams that keep the plant running, and building small internal
+      tools that remove manual, error-prone steps. <em>(Replace this paragraph with your own words — a few lines on your
+      background, what you enjoy about the work, and what you're aiming toward.)</em>
+    </p>
+  </section>
+
+  <section id="skills">
+    <div class="section-head">
+      <h2>Skills</h2>
+      <span class="tag">What I work with</span>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-col">
+        <h3>Systems &amp; Infrastructure</h3>
+        <ul>
+          <li>Network administration</li>
+          <li>Windows / Linux server management</li>
+          <li>Hardware maintenance</li>
+          <li>IT support &amp; troubleshooting</li>
+          <li>SAP B1</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>Development</h3>
+        <ul>
+          <li>HTML &amp; CSS</li>
+          <li>JavaScript</li>
+          <li>SQL</li>
+          <li>Basic scripting / automation</li>
+          <li>Python</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>Tools &amp; Platforms</h3>
+        <ul>
+          <li>Active Directory</li>
+          <li>Microsoft 365</li>
+          <li>ERP / internal systems</li>
+          <li>Helpdesk &amp; ticketing tools</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="section-head">
+      <h2>Work</h2>
+      <span class="tag">Selected projects</span>
+    </div>
+    <div class="tline">
+      <div class="titem">
+        <div class="when">2025 — Ongoing</div>
+        <h3>Internal Helpdesk Portal</h3>
+        <p>A lightweight ticketing tool for logging and tracking IT support requests across departments, cutting down on back-and-forth over email.</p>
+        <div class="stack">Built with <span>HTML, CSS, JavaScript</span></div>
+      </div>
+      <div class="titem">
+        <div class="when">2024</div>
+        <h3>Network Infrastructure Upgrade</h3>
+        <p>Planned and supported a company-wide LAN improvement to reduce downtime across production and office floors.</p>
+        <div class="stack">Focus: <span>Networking, hardware</span></div>
+      </div>
+      <div class="titem">
+        <div class="when">2024</div>
+        <h3>IT Asset Tracking Tool</h3>
+        <p>A simple internal web tool to log and monitor company hardware — who has what, warranty status, and maintenance history.</p>
+        <div class="stack">Built with <span>HTML, CSS, JavaScript, SQL</span></div>
+      </div>
+      <div class="titem">
+        <div class="when">2023</div>
+        <h3>Company Intranet Revamp</h3>
+        <p>Refreshed the internal employee portal for clarity and speed, replacing an outdated layout with something staff actually use.</p>
+        <div class="stack">Focus: <span>Front-end, UX</span></div>
+      </div>
+    </div>
+    <p style="margin-top:22px; font-size:0.85rem; color:var(--text-dim);">
+      — Replace these four with your real projects, dates, and one line each on impact.
+    </p>
+  </section>
+
+  <section id="contact">
+    <div class="section-head">
+      <h2>Contact</h2>
+      <span class="tag">Get in touch</span>
+    </div>
+    <div class="contact-wrap">
+      <div>
+        <p class="contact-lead">Open to conversations about IT infrastructure, internal tools, and web work.</p>
+        <a class="cta" href="mailto:your.email@example.com">Send an email</a>
+      </div>
+      <ul class="contact-list">
+        <li><span class="k">Email</span><span>ashok72013670@gmail.com</span></li>
+        <li><span class="k">Phone</span><span>+9779807166850</span></li>
+        <li><span class="k">LinkedIn</span><span>linkedin.com/in/Ashok Mahato</span></li>
+        <li><span class="k">GitHub</span><span>github.com/Ashok Mahato</span></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <span>© 2026 Ashok Mahato</span>
+  <span>Deurali-Janta Pharmaceuticals Pvt. Ltd. · IT Office</span>
+</footer>
+
+</body>
+</html>
