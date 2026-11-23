@@ -290,15 +290,22 @@ h1 .accent { color: var(--accent); }
 }
 
 @media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; gap: 56px; padding-block: 70px 90px; }
+  .hero { grid-template-columns: 1fr; gap: 34px; padding-block: 70px 90px; }
   .status-card { max-width: 100%; }
-  .hero-visual { width: 100%; }
-  .hero-photo {
-    opacity: .22;
-    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 55%, transparent 95%);
-    mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 55%, transparent 95%);
+  /* On narrow screens the portrait becomes a real image block, so the face
+     stays fully visible while its lower edge still fades into the page. */
+  .hero-visual {
+    position: relative; inset: auto; order: 2;
+    width: 100%; max-width: 360px; aspect-ratio: 4 / 5;
+    border-radius: 6px; overflow: hidden;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 84%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 84%, transparent 100%);
   }
-  .photo-fade { background: linear-gradient(180deg, rgba(11, 16, 24, .35), var(--bg) 78%); }
+  .hero-photo {
+    opacity: 1; object-position: center 14%;
+    -webkit-mask-image: none; mask-image: none;
+  }
+  .photo-fade { background: linear-gradient(180deg, transparent 72%, var(--bg) 100%); }
 }
 
 /* ---------- marquee ---------- */
@@ -581,6 +588,8 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
 @media (max-width: 600px) {
   .hero { min-height: auto; padding-block: 62px 76px; }
   h1 { font-size: clamp(3.6rem, 17vw, 6rem); }
+  .hero-photo { object-position: center 12%; }
+  .photo-fade { background: linear-gradient(180deg, transparent 78%, var(--bg) 100%); }
   .hero-lede { margin-top: 26px; }
   .sec-head { margin-bottom: 40px; }
   .sec-head--split { display: block; }
